@@ -1,0 +1,105 @@
+======================================================================
+UPSET DEFINITION: 'rank'   missing-rank policy: 'exclude'
+======================================================================
+
+Completed matches with a missing pre-match ranking: 81 of 29,626 (0.27%)
+  entry type of the unranked player (WC = wildcard, PR = protected ranking, Q = qualifier):
+  entry
+  WC               43
+  (direct/none)    19
+  PR               11
+  Q                 4
+  ALT               3
+  LL                1
+  most frequent unranked players: {'Steve Darcis': 4, 'Janko Tipsarevic': 3, 'Jack Sock': 3, 'Andrey Kuznetsov': 3, 'Kevin Anderson': 3, 'Florian Mayer': 2}
+
+Filters (matches before -> after):
+  completed matches only (drop retirements/defaults)              30,518 ->  29,626  (removed 892)
+  season >= 2015 (2014 = Elo/profile warm-up)                     29,626 ->  27,138  (removed 2,488)
+  upset label defined (both players ranked, ranks differ)         27,138 ->  27,058  (removed 80)
+  -> of these, both players have profile_ok (Graph 3 sample)      27,058 ->  20,607  (flagged, not removed: 6,451)
+
+======================================================================
+UPSET LABEL VERIFICATION
+======================================================================
+upset == (winner_rank > loser_rank) for every row: True
+fav_rank < dog_rank for every row: True
+rank ties encountered: 0
+
+Examples:
+tourney_date  tourney_name round           winner_name  winner_rank           loser_name  loser_rank             fav_name              dog_name  upset
+  2025-05-18       Hamburg   R32  Camilo Ugo Carabelli         52.0       Sebastian Baez        36.0       Sebastian Baez  Camilo Ugo Carabelli      1
+  2019-05-20          Lyon    SF Felix Auger Aliassime         28.0 Nikoloz Basilashvili        18.0 Nikoloz Basilashvili Felix Auger Aliassime      1
+  2021-01-05       Antalya    SF        Alex De Minaur         23.0         David Goffin        16.0         David Goffin        Alex De Minaur      1
+  2022-01-03     Melbourne   R16           Alex Molcan         88.0         David Goffin        39.0         David Goffin           Alex Molcan      1
+  2025-06-30     Wimbledon  R128     Brandon Nakashima         34.0       Bu Yunchaokete        71.0    Brandon Nakashima        Bu Yunchaokete      0
+  2015-07-20        Bastad   R16         Denis Istomin         73.0      Nicolas Almagro       138.0        Denis Istomin       Nicolas Almagro      0
+  2024-05-27 Roland Garros  R128         Andrey Rublev          6.0          Taro Daniel        80.0        Andrey Rublev           Taro Daniel      0
+
+Upset rate by season (rank-defined):
+        matches  upset_rate  graph3_matches  graph3_upset_rate
+season                                                        
+2015       2518       0.311            2006              0.323
+2016       2581       0.322            1947              0.331
+2017       2541       0.346            1931              0.355
+2018       2568       0.363            1968              0.368
+2019       2530       0.388            2005              0.399
+2020       1313       0.364             913              0.371
+2021       2510       0.367            1734              0.378
+2022       2612       0.356            2051              0.365
+2023       2661       0.365            1997              0.374
+2024       2689       0.359            2096              0.358
+2025       2535       0.352            1959              0.352
+
+Rank favorite also has the higher Elo in 81.9% of matches (the two definitions disagree on 18.1%).
+Upset rate by rank-gap band (sanity: bigger gaps -> fewer upsets):
+               size   mean
+log_rank_diff             
+(0.0, 0.25]    3848  0.479
+(0.25, 0.5]    4006  0.448
+(0.5, 1.0]     6592  0.408
+(1.0, 1.5]     4771  0.328
+(1.5, 2.0]     3256  0.263
+(2.0, 10.0]    4585  0.177
+
+Graph 3 sample vs excluded (profiles thin): not a random subset
+                   n  upset_rate  median_fav_rank  median_dog_rank
+graph3_sample                                                     
+False           6451       0.331             59.0            169.0
+True           20607       0.361             24.0             65.0
+  excluded because favorite profile thin: 956, underdog thin: 6,170
+
+======================================================================
+PROFILE FEATURE CHECKS — training seasons only (2015-2022, n=14,555); test seasons untouched
+======================================================================
+Mean underdog-minus-favorite gap, upsets vs non-upsets:
+                  favorite_won   upset
+d_ace_rate             -0.0119 -0.0052
+d_df_rate               0.0019  0.0003
+d_first_in_pct         -0.0084 -0.0022
+d_first_won_pct        -0.0221 -0.0105
+d_second_won_pct       -0.0181 -0.0073
+d_spw                  -0.0225 -0.0098
+d_rpw                  -0.0140 -0.0073
+
+Upset rate by quintile of d_spw (dog - fav):
+                     size   mean
+d_spw                           
+(-0.177, -0.0486]    2911  0.248
+(-0.0486, -0.0266]   2911  0.319
+(-0.0266, -0.00774]  2911  0.362
+(-0.00774, 0.0134]   2911  0.405
+(0.0134, 0.147]      2911  0.468
+
+Upset rate by quintile of d_rpw (dog - fav):
+                     size   mean
+d_rpw                           
+(-0.161, -0.0412]    2911  0.285
+(-0.0412, -0.0204]   2911  0.356
+(-0.0204, -0.00282]  2911  0.361
+(-0.00282, 0.0175]   2911  0.380
+(0.0175, 0.147]      2911  0.420
+
+Saved -> /Users/katelynsmith/tennis_upsets/data/processed/atp_model_dataset.csv  (27,058 rows, 20,607 in Graph 3 sample)
+
+Columns: upset_definition, upset, fav_id, dog_id, fav_name, dog_name, fav_rank, dog_rank, fav_rank_points, dog_rank_points, fav_elo_pre, dog_elo_pre, fav_elo_n, dog_elo_n, fav_age, dog_age, fav_hand, dog_hand, fav_ht, dog_ht, fav_rank_eff, dog_rank_eff, rank_diff, log_rank_diff, elo_diff, elo_prob_dog, fav_prof_ace_rate, dog_prof_ace_rate, fav_prof_df_rate, dog_prof_df_rate, fav_prof_first_in_pct, dog_prof_first_in_pct, fav_prof_first_won_pct, dog_prof_first_won_pct, fav_prof_second_won_pct, dog_prof_second_won_pct, fav_prof_spw, dog_prof_spw, fav_prof_rpw, dog_prof_rpw, fav_prof_n_matches, dog_prof_n_matches, fav_prof_serve_points, dog_prof_serve_points, fav_prof_return_points, dog_prof_return_points, fav_profile_ok, dog_profile_ok, both_profiles_ok, graph3_sample, surface_clay, surface_grass, d_ace_rate, d_df_rate, d_first_in_pct, d_first_won_pct, d_second_won_pct, d_spw, d_rpw

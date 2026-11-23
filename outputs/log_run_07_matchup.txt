@@ -1,0 +1,155 @@
+======================================================================
+GRAPH 3: train 2015-2022 (n=14,555), test 2023-2025 (n=6,052); upset definition 'rank'
+======================================================================
+Missing feature values in Graph 3 sample: 0
+
+OUT-OF-SAMPLE (test). skill_vs_baseline = log-loss gain over 'no information', relative to the baseline (1.00)
+                                n  log_loss   brier     auc  accuracy  mean_pred  skill_vs_baseline
+constant (no information)  6052.0    0.6541  0.2307  0.5000    0.6388     0.3603                NaN
+log_rank:baseline          6052.0    0.6304  0.2206  0.6206    0.6368     0.3552             1.0000
+log_rank:additive          6052.0    0.6220  0.2171  0.6452    0.6408     0.3625             1.3535
+log_rank:matchup           6052.0    0.6219  0.2170  0.6456    0.6408     0.3624             1.3588
+elo:baseline               6052.0    0.6213  0.2168  0.6479    0.6454     0.3664             1.0000
+elo:additive               6052.0    0.6184  0.2156  0.6540    0.6446     0.3679             1.0887
+elo:matchup                6052.0    0.6183  0.2156  0.6542    0.6464     0.3678             1.0897
+
+Paired bootstrap on test (2,000 resamples). improvement > 0 = second model better; 95% CI
+
+  [log_rank] additive vs baseline:
+            improvement   ci_low  ci_high
+  log_loss      0.00838  0.00488  0.01242
+  brier         0.00351  0.00188  0.00530
+  auc           0.02457  0.01581  0.03426
+
+  [log_rank] matchup vs baseline:
+            improvement   ci_low  ci_high
+  log_loss      0.00850  0.00495  0.01248
+  brier         0.00357  0.00195  0.00535
+  auc           0.02492  0.01613  0.03465
+
+  [log_rank] matchup vs additive:
+            improvement   ci_low  ci_high
+  log_loss      0.00013 -0.00020  0.00045
+  brier         0.00006 -0.00008  0.00021
+  auc           0.00034 -0.00042  0.00109
+
+  [elo] additive vs baseline:
+            improvement   ci_low  ci_high
+  log_loss      0.00291  0.00091  0.00498
+  brier         0.00114  0.00024  0.00208
+  auc           0.00616  0.00198  0.01065
+
+  [elo] matchup vs baseline:
+            improvement   ci_low  ci_high
+  log_loss      0.00295  0.00092  0.00508
+  brier         0.00117  0.00027  0.00211
+  auc           0.00636  0.00213  0.01092
+
+  [elo] matchup vs additive:
+            improvement   ci_low  ci_high
+  log_loss      0.00003 -0.00031  0.00038
+  brier         0.00004 -0.00011  0.00019
+  auc           0.00019 -0.00048  0.00089
+
+COEFFICIENTS (per 1 SD; positive = raises upset probability). Fit on training seasons.
+                         log_rank:additive  log_rank:matchup  elo:additive  elo:matchup
+log_rank_diff                       -0.255            -0.256           NaN          NaN
+surface_clay                        -0.004            -0.004         0.001        0.001
+surface_grass                       -0.019            -0.018        -0.013       -0.013
+dog_prof_ace_rate                    0.096             0.090         0.071        0.060
+dog_prof_df_rate                     0.015             0.015         0.019        0.020
+dog_prof_first_in_pct                0.011             0.010        -0.010       -0.009
+dog_prof_first_won_pct              -0.063            -0.059        -0.124       -0.110
+dog_prof_second_won_pct              0.017             0.016        -0.018       -0.018
+dog_prof_spw                         0.306             0.307         0.231        0.226
+dog_prof_rpw                         0.238             0.235         0.108        0.103
+fav_prof_ace_rate                   -0.039            -0.039        -0.048       -0.048
+fav_prof_df_rate                     0.017             0.016         0.012        0.012
+fav_prof_first_in_pct                0.039             0.048         0.017        0.023
+fav_prof_first_won_pct               0.093             0.121         0.057        0.075
+fav_prof_second_won_pct              0.008             0.021         0.009        0.020
+fav_prof_spw                        -0.491            -0.525        -0.285       -0.308
+fav_prof_rpw                        -0.366            -0.364        -0.240       -0.239
+ix_dog_rpw_x_fav_spw                   NaN             0.018           NaN        0.007
+ix_dog_spw_x_fav_rpw                   NaN            -0.000           NaN        0.009
+ix_dog_rpw_x_fav_2nd                   NaN            -0.041           NaN       -0.038
+elo_diff                               NaN               NaN        -0.470       -0.471
+
+CALIBRATION on test
+
+  log_rank:baseline:
+                 n  predicted  observed
+  p                                    
+  (0.0, 0.1]    83      0.080     0.084
+  (0.1, 0.2]   549      0.157     0.175
+  (0.2, 0.3]  1157      0.255     0.252
+  (0.3, 0.4]  1696      0.353     0.380
+  (0.4, 0.5]  2439      0.450     0.446
+  (0.5, 0.6]   128      0.503     0.453
+
+  log_rank:matchup:
+                 n  predicted  observed
+  p                                    
+  (0.0, 0.1]   139      0.076     0.065
+  (0.1, 0.2]   587      0.158     0.148
+  (0.2, 0.3]  1157      0.253     0.274
+  (0.3, 0.4]  1671      0.352     0.354
+  (0.4, 0.5]  1642      0.448     0.455
+  (0.5, 0.6]   733      0.538     0.492
+  (0.6, 1.0]   123      0.643     0.593
+
+  elo:matchup:
+                 n  predicted  observed
+  p                                    
+  (0.0, 0.1]   137      0.075     0.080
+  (0.1, 0.2]   578      0.159     0.126
+  (0.2, 0.3]  1172      0.255     0.259
+  (0.3, 0.4]  1706      0.350     0.373
+  (0.4, 0.5]  1413      0.447     0.436
+  (0.5, 0.6]   773      0.541     0.493
+  (0.6, 1.0]   273      0.654     0.604
+
+Test log loss by season:
+        log_rank:baseline  log_rank:additive  log_rank:matchup  elo:baseline  elo:additive  elo:matchup
+season                                                                                                 
+2023               0.6401             0.6282            0.6282        0.6324        0.6275       0.6277
+2024               0.6234             0.6166            0.6161        0.6141        0.6128       0.6124
+2025               0.6280             0.6215            0.6217        0.6176        0.6151       0.6152
+
+Where does the gain come from? Test log-loss gain (log_rank: matchup vs baseline) by surface and rank gap
+         size    mean
+surface              
+Clay     1800  0.0016
+Grass     715  0.0150
+Hard     3537  0.0107
+               size    mean
+log_rank_diff              
+(0.0, 0.5]     1867  0.0071
+(0.5, 1.0]     1469  0.0061
+(1.0, 1.5]     1031  0.0086
+(1.5, 2.0]      714  0.0120
+(2.0, 10.0]     971  0.0122
+
+POST-HOC DIAGNOSTIC: two quality gaps (d_spw, d_rpw = dog minus fav) vs all 14 profile columns
+  [log_rank] log loss: baseline 0.6304, +2 gaps 0.6223, +14 cols 0.6220
+         14 cols vs 2 gaps improvement 0.00029 (95% CI -0.00074 to 0.00133)
+  [elo] log loss: baseline 0.6213, +2 gaps 0.6191, +14 cols 0.6184
+         14 cols vs 2 gaps improvement 0.00069 (95% CI -0.00035 to 0.00181)
+
+======================================================================
+ROLLING ORIGIN: train on all seasons before Y, test on Y
+======================================================================
+           n  log_rank_base  log_rank_add_gain  log_rank_ix_gain  elo_base  elo_add_gain  elo_ix_gain
+season                                                                                               
+2018    1968         0.6428             0.0117           -0.0012    0.6282        0.0033      -0.0014
+2019    2005         0.6504             0.0091            0.0004    0.6323       -0.0004       0.0002
+2020     913         0.6360             0.0110           -0.0016    0.6265        0.0032      -0.0017
+2021    1734         0.6338             0.0109           -0.0005    0.6203        0.0038      -0.0004
+2022    2051         0.6393             0.0145           -0.0001    0.6171        0.0011       0.0001
+2023    1997         0.6401             0.0119            0.0000    0.6324        0.0049      -0.0002
+2024    2096         0.6235             0.0069            0.0004    0.6141        0.0014       0.0004
+2025    1959         0.6280             0.0058           -0.0004    0.6176        0.0017      -0.0003
+  [log_rank] additive beats baseline in 8/8 seasons; interactions beat additive in 3/8 seasons
+  [elo] additive beats baseline in 7/8 seasons; interactions beat additive in 3/8 seasons
+
+Saved -> matchup_test_predictions.csv, graph3_results.csv, graph3_bootstrap.csv (data/processed/)

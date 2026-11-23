@@ -1,0 +1,130 @@
+Loaded 33,517 raw rows from 12 files
+source_file
+atp_matches_2014.csv    2901
+atp_matches_2015.csv    2943
+atp_matches_2016.csv    2941
+atp_matches_2017.csv    2911
+atp_matches_2018.csv    2897
+atp_matches_2019.csv    2806
+atp_matches_2020.csv    1462
+atp_matches_2021.csv    2733
+atp_matches_2022.csv    2917
+atp_matches_2023.csv    2986
+atp_matches_2024.csv    3076
+atp_matches_2025.csv    2944 
+
+Cleaning steps (rows before -> after):
+  1. drop duplicate match records                          33,517 ->  33,515  (removed 2)
+  2a. drop Davis Cup (tourney_level D)                     33,515 ->  30,813  (removed 2,702)
+  2b. drop Laver Cup + Next Gen Finals                     30,813 ->  30,725  (removed 88)
+
+  Outcome types before removing walkovers:
+  outcome_type
+  completed     29626
+  retirement      885
+  walkover        207
+  default           7
+  3. drop walkovers                                        30,725 ->  30,518  (removed 207)
+
+Final cleaned dataset: 30,518 matches (29,626 completed, 892 incomplete)
+
+======================================================================
+COLUMNS
+======================================================================
+tourney_id, tourney_name, surface, draw_size, tourney_level, tourney_date, match_num, winner_id, winner_seed, winner_entry, winner_name, winner_hand, winner_ht, winner_ioc, winner_age, loser_id, loser_seed, loser_entry, loser_name, loser_hand, loser_ht, loser_ioc, loser_age, score, best_of, round, minutes, w_ace, w_df, w_svpt, w_1stIn, w_1stWon, w_2ndWon, w_SvGms, w_bpSaved, w_bpFaced, l_ace, l_df, l_svpt, l_1stIn, l_1stWon, l_2ndWon, l_SvGms, l_bpSaved, l_bpFaced, winner_rank, winner_rank_points, loser_rank, loser_rank_points, source_file, outcome_type, completed, year, season, match_id, stats_present, stats_ok, round_order, match_order
+
+======================================================================
+MATCHES BY SEASON (all retained / completed / completed with valid stats)
+======================================================================
+        all_matches  completed  completed_stats_ok first_date  last_date
+season                                                                  
+2014           2575       2488                2487 2013-12-29 2014-11-09
+2015           2621       2527                2526 2015-01-04 2015-11-15
+2016           2671       2588                2587 2016-01-04 2016-11-14
+2017           2634       2545                2540 2017-01-02 2017-11-13
+2018           2639       2571                2568 2018-01-01 2018-11-12
+2019           2604       2546                2545 2018-12-31 2019-11-11
+2020           1347       1323                1323 2020-01-06 2020-11-16
+2021           2578       2516                2451 2021-01-04 2021-11-15
+2022           2684       2614                2614 2022-01-03 2022-11-14
+2023           2747       2674                2674 2023-01-02 2023-11-27
+2024           2772       2695                2691 2024-01-01 2024-11-11
+2025           2646       2539                2539 2024-12-27 2025-11-09
+
+======================================================================
+SURFACES (completed matches)
+======================================================================
+surface  Clay  Grass   Hard    All
+season                            
+2014      790    287   1411   2488
+2015      771    311   1445   2527
+2016      784    308   1496   2588
+2017      777    308   1460   2545
+2018      795    317   1459   2571
+2019      764    317   1465   2546
+2020      371      0    952   1323
+2021      771    286   1459   2516
+2022      754    310   1550   2614
+2023      831    322   1521   2674
+2024      895    312   1488   2695
+2025      733    287   1519   2539
+All      9036   3365  17225  29626
+
+======================================================================
+TOURNAMENT LEVELS (completed matches)
+======================================================================
+tourney_level
+A    17090
+M     6529
+G     5721
+F      223
+O       63
+
+======================================================================
+MISSINGNESS IN KEY SERVE-STAT COLUMNS (completed matches)
+======================================================================
+% missing per column:
+w_ace        0.27
+w_df         0.27
+w_svpt       0.27
+w_1stIn      0.27
+w_1stWon     0.27
+w_2ndWon     0.27
+w_SvGms      0.27
+w_bpSaved    0.27
+w_bpFaced    0.27
+l_ace        0.27
+l_df         0.27
+l_svpt       0.27
+l_1stIn      0.27
+l_1stWon     0.27
+l_2ndWon     0.27
+l_SvGms      0.27
+l_bpSaved    0.27
+l_bpFaced    0.27
+
+rows with ALL stats present: 99.73%
+rows passing consistency checks (stats_ok): 99.73%
+present but failing checks: 1
+
+% of completed matches WITHOUT valid stats, by season and level:
+tourney_level    A    F    G    M    O
+season                                
+2014           0.0  0.0  0.0  0.2  NaN
+2015           0.1  0.0  0.0  0.0  NaN
+2016           0.1  0.0  0.0  0.0  NaN
+2017           0.3  3.3  0.0  0.0  NaN
+2018           0.1  0.0  0.2  0.0  NaN
+2019           0.1  0.0  0.0  0.0  NaN
+2020           0.0  0.0  0.0  0.0  NaN
+2021           4.3  0.0  0.0  0.0  NaN
+2022           0.0  0.0  0.0  0.0  NaN
+2023           0.0  0.0  0.0  0.0  NaN
+2024           0.0  0.0  0.2  0.0  4.8
+2025           0.0  0.0  0.0  0.0  NaN
+
+Missing ATP rankings (completed matches):
+winner_rank    13
+loser_rank     68
+
+Saved -> /Users/katelynsmith/tennis_upsets/data/processed/atp_matches_clean.csv

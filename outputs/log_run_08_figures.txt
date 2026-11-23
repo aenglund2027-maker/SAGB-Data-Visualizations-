@@ -1,0 +1,45 @@
+Saved -> /Users/katelynsmith/tennis_upsets/outputs/figures/graph3_model_comparison.png
+
+Flagged opportunities: comeback 11.3%, riser 5.7% (next-year ranking unavailable for 32.2%, incl. all of 2025)
+Player flags among qualifiers: {'none': 198, 'comeback': 40, 'riser': 19}
+
+Top 20 as plotted (plus score using only unflagged matches):
+                       player  opportunities  gk_score    se     z  comeback_share  riser_share      flag  gk_score_unflagged_only  opportunities_unflagged_only
+dog_id                                                                                                                                                          
+105223  Juan Martin del Potro             72     25.15  3.49  7.20            0.60         0.00  comeback                      NaN                           NaN
+106401           Nick Kyrgios            100     24.60  4.52  5.45            0.32         0.03  comeback                    12.20                          65.0
+202385        Jenson Brooksby             78     16.98  3.96  4.28            0.00         0.15      none                    13.71                          66.0
+104527          Stan Wawrinka            138     16.76  5.33  3.15            0.68         0.00  comeback                    -1.12                          44.0
+207733            Jack Draper             77     16.52  4.08  4.05            0.00         0.48     riser                     9.09                          40.0
+200624        Sebastian Korda            115     15.38  5.09  3.02            0.10         0.20      none                     7.65                          81.0
+106423     Thanasi Kokkinakis             97     13.69  4.45  3.08            0.00         0.06      none                    12.60                          91.0
+207989         Carlos Alcaraz             53     13.65  3.43  3.99            0.11         0.83     riser                      NaN                           NaN
+210150           Jakub Mensik             48     12.10  3.22  3.76            0.00         0.60     riser                      NaN                           NaN
+124187          Reilly Opelka            122     12.09  5.00  2.42            0.33         0.10  comeback                     1.74                          70.0
+206173          Jannik Sinner             83     12.08  4.28  2.82            0.00         0.71     riser                      NaN                           NaN
+126203           Taylor Fritz            160     11.27  5.91  1.91            0.00         0.09      none                    10.92                         145.0
+104918            Andy Murray            110     11.04  4.70  2.35            0.24         0.00      none                     3.23                          84.0
+104745           Rafael Nadal             37     10.93  2.69  4.06            0.92         0.00  comeback                      NaN                           NaN
+207518        Lorenzo Musetti            109     10.84  4.87  2.22            0.00         0.41     riser                     3.67                          64.0
+105526     Jan Lennard Struff            226     10.79  6.98  1.55            0.15         0.00      none                     5.50                         191.0
+126239     Arthur Rinderknech            121     10.73  5.17  2.07            0.00         0.00      none                    10.73                         121.0
+106233          Dominic Thiem            110     10.68  4.83  2.21            0.55         0.08  comeback                     2.64                          41.0
+104925         Novak Djokovic             32     10.67  2.71  3.93            0.84         0.00  comeback                      NaN                           NaN
+105777        Grigor Dimitrov            134     10.63  5.39  1.97            0.39         0.00  comeback                     7.71                          82.0
+
+Robustness — top 10 using only matches with neither flag:
+                    player  opportunities_unflagged_only  gk_score_unflagged_only  z_unflagged_only
+dog_id                                                                                             
+202385     Jenson Brooksby                          66.0                    13.71              3.81
+106423  Thanasi Kokkinakis                          91.0                    12.60              2.89
+106401        Nick Kyrgios                          65.0                    12.20              3.31
+126203        Taylor Fritz                         145.0                    10.92              1.94
+126239  Arthur Rinderknech                         121.0                    10.73              2.07
+105870    Yannick Hanfmann                         119.0                    10.55              2.09
+105916    Marton Fucsovics                         183.0                     9.96              1.56
+207733         Jack Draper                          40.0                     9.09              3.06
+111797       Nicolas Jarry                          92.0                     8.70              1.96
+128034      Hubert Hurkacz                          79.0                     7.96              1.93
+
+Saved -> /Users/katelynsmith/tennis_upsets/outputs/figures/graph4_giant_killers.png
+Saved -> data/processed/graph4_chart_data.csv

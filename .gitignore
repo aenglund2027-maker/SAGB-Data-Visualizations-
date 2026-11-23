@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Out of project scope (2014-2025 only); downloaded but never loaded
+data/raw/atp_matches_2026.csv

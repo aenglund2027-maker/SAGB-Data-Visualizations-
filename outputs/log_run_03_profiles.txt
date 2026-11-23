@@ -1,0 +1,80 @@
+======================================================================
+PROFILES: previous 364 days, point-weighted; profile_ok = >= 10 matches
+======================================================================
+Formulas (window sums of Sackmann counts):
+  ace_rate        = (ace) / (svpt)
+  df_rate         = (df) / (svpt)
+  first_in_pct    = (first_in) / (svpt)
+  first_won_pct   = (first_won) / (first_in)
+  second_won_pct  = (second_won) / (svpt - first_in)
+  spw             = (first_won + second_won) / (svpt)
+  rpw             = (opp_svpt - opp_first_won - opp_second_won) / (opp_svpt)
+
+Player-match rows: 61,036 (2 per match x 30,518 matches)
+
+--- Leakage / correctness verification ---
+Brute-force check on 300 random player-matches: 0 match-count mismatches, max abs difference across all 7 stats = 0.00e+00
+
+Worked example: Alcaraz entering the 2023 Wimbledon final (window = matches after 2022-07-04, before this match)
+  matches         pipeline=75       brute force=75
+  ace_rate        pipeline=0.0488   brute force=0.0488
+  df_rate         pipeline=0.0295   brute force=0.0295
+  first_in_pct    pipeline=0.6674   brute force=0.6674
+  first_won_pct   pipeline=0.7143   brute force=0.7143
+  second_won_pct  pipeline=0.5582   brute force=0.5582
+  spw             pipeline=0.6624   brute force=0.6624
+  rpw             pipeline=0.4281   brute force=0.4281
+
+Perturbation test: corrupted Adelaide 1 R32 (Novak Djokovic d. Constant Lestienne, match_order 22394)
+  profile rows changed: 83; earliest changed match_order = 22402 -> OK, no leakage
+  Djokovic ace_rate AT corrupted match: before=0.0810 after=0.0810 (must be identical)
+  every player's first match has 0 prior matches: True
+
+Profile distributions (player-matches with profile_ok, 2015+; n=48,476):
+                      mean    std    min     5%    50%    95%    max
+prof_ace_rate        0.080  0.041  0.007  0.030  0.073  0.157  0.322
+prof_df_rate         0.036  0.012  0.004  0.020  0.034  0.058  0.140
+prof_first_in_pct    0.618  0.038  0.474  0.557  0.619  0.680  0.764
+prof_first_won_pct   0.722  0.041  0.571  0.653  0.722  0.792  0.859
+prof_second_won_pct  0.514  0.029  0.360  0.466  0.514  0.561  0.634
+prof_spw             0.642  0.032  0.516  0.594  0.640  0.697  0.759
+prof_rpw             0.367  0.028  0.252  0.320  0.367  0.411  0.451
+NaNs among profile_ok rows: 0
+
+Correlations among the seven variables:
+                ace_rate  df_rate  first_in_pct  first_won_pct  second_won_pct   spw   rpw
+ace_rate            1.00     0.22         -0.05           0.85            0.17  0.74 -0.56
+df_rate             0.22     1.00         -0.38           0.18           -0.43 -0.10 -0.11
+first_in_pct       -0.05    -0.38          1.00          -0.19            0.21  0.17  0.06
+first_won_pct       0.85     0.18         -0.19           1.00            0.31  0.88 -0.35
+second_won_pct      0.17    -0.43          0.21           0.31            1.00  0.66  0.06
+spw                 0.74    -0.10          0.17           0.88            0.66  1.00 -0.25
+rpw                -0.56    -0.11          0.06          -0.35            0.06 -0.25  1.00
+
+Player-match rows by prior stat matches in window (all seasons):
+prof_n_matches
+0         1426
+1-4       3899
+5-9       3930
+10-19     7500
+20-39    17527
+40+      26754
+
+Leaders as of 2025-11-15 (>= 25 matches in window, active last 60 days; 83 players):
+  highest ace_rate       Reilly Opelka 0.195, Giovanni Mpetshi Perricard 0.161, Jakub Mensik 0.161, Alexander Bublik 0.148
+  lowest ace_rate        Pedro Martinez 0.013, Damir Dzumhur 0.016, Sebastian Baez 0.023, Mariano Navone 0.034
+  highest df_rate        Jacob Fearnley 0.080, Denis Shapovalov 0.078, Alexander Bublik 0.066, Botic Van De Zandschulp 0.061
+  lowest df_rate         Brandon Nakashima 0.013, Jannik Sinner 0.017, Matteo Berrettini 0.020, Marcos Giron 0.020
+  highest first_in_pct   Alexander Zverev 0.720, Sebastian Baez 0.718, Pedro Martinez 0.689, Matteo Berrettini 0.682
+  lowest first_in_pct    David Goffin 0.542, Alex De Minaur 0.555, Flavio Cobolli 0.556, Matteo Arnaldi 0.563
+  highest first_won_pct  Taylor Fritz 0.797, Jannik Sinner 0.796, Reilly Opelka 0.792, Alexander Bublik 0.785
+  lowest first_won_pct   Pedro Martinez 0.620, Damir Dzumhur 0.624, Sebastian Baez 0.625, Mariano Navone 0.659
+  highest second_won_pct Jannik Sinner 0.599, Carlos Alcaraz 0.569, Alex De Minaur 0.567, Lorenzo Musetti 0.556
+  lowest second_won_pct  Alexander Shevchenko 0.456, Francisco Comesana 0.464, Pedro Martinez 0.464, Daniel Altmaier 0.467
+  highest spw            Jannik Sinner 0.721, Taylor Fritz 0.704, Novak Djokovic 0.698, Giovanni Mpetshi Perricard 0.698
+  lowest spw             Pedro Martinez 0.571, Sebastian Baez 0.582, Camilo Ugo Carabelli 0.593, Damir Dzumhur 0.595
+  highest rpw            Jannik Sinner 0.432, Carlos Alcaraz 0.417, Alex De Minaur 0.406, Sebastian Baez 0.405
+  lowest rpw             Giovanni Mpetshi Perricard 0.260, Reilly Opelka 0.288, Quentin Halys 0.315, Arthur Rinderknech 0.318
+
+Saved -> /Users/katelynsmith/tennis_upsets/data/processed/player_profiles_long.csv
+Saved -> /Users/katelynsmith/tennis_upsets/data/processed/atp_matches_profiles.csv
