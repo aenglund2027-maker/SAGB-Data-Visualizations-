@@ -35,7 +35,7 @@ def plot_graph3(df, output=None, show=True):
     fig,ax=plt.subplots(figsize=(11.2,6.5),facecolor='white')
     style_axis(ax)
     ax.plot(x,sub.expected_rate,color=EXPECTED,lw=2.3,marker='o',ms=7,
-            markeredgecolor='white',markeredgewidth=1.2,zorder=4,label='Ranking + surface expectation')
+            markeredgecolor='white',markeredgewidth=1.2,zorder=4,label='Ranking + surface benchmark (fitted)')
     ax.plot(x,sub.upset_rate,color=OBSERVED,lw=2.8,marker='o',ms=9,
             markeredgecolor='white',markeredgewidth=1.4,zorder=5,label='Actual upset rate')
     # Place direct labels on the last two points to reduce reliance on visual color matching.
@@ -46,13 +46,14 @@ def plot_graph3(df, output=None, show=True):
     ax.set_xticks(x,order)
     ax.set_yticks([25,30,35,40,45],['25%','30%','35%','40%','45%'])
     ax.set_ylim(23,48)
-    ax.set_xlabel('Underdog win rate over previous 10 ATP matches',fontsize=12,color=INK,labelpad=20)
+    ax.set_xlabel('Underdog win rate over up to 10 prior recorded matches',fontsize=12,color=INK,labelpad=20)
     ax.set_ylabel('Underdog win rate',fontsize=12,color=INK,labelpad=16)
-    ax.set_title('Does Recent Form Reveal Hidden Favorites?',loc='left',fontsize=22,
-                 fontweight='bold',color=INK,pad=30)
+    fig.text(.125,.955,'Does Recent Form Help Explain ATP Upsets?',fontsize=22,
+             fontweight='bold',color=INK, va='top')
+    fig.text(.125,.892,'ATP main-draw matches · 2014–2025',color=MUTED,fontsize=10.5,va='top')
     ax.legend(loc='upper left',bbox_to_anchor=(0,1.03),ncol=2,frameon=False,
               fontsize=10.5,columnspacing=2.4,labelcolor=INK)
-    fig.subplots_adjust(left=.125,right=.94,bottom=.18,top=.78)
+    fig.subplots_adjust(left=.125,right=.94,bottom=.18,top=.75)
     if output:
         output=Path(output)
         output.parent.mkdir(parents=True,exist_ok=True)

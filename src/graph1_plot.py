@@ -39,15 +39,16 @@ def plot_graph1(df, output=None, show=True):
                 markeredgecolor='white',markeredgewidth=1.2,label=surf,zorder=3)
     style_axis(ax)
     ax.set_xticks(np.arange(len(order)),order)
-    ax.set_ylim(12,52)
+    ax.set_ylim(16,53)
     ax.set_yticks([20,30,40,50],['20%','30%','40%','50%'])
     ax.set_xlabel('ATP ranking gap (places)',fontsize=12,color=INK,labelpad=20)
     ax.set_ylabel('Upset rate',fontsize=12,color=INK,labelpad=16)
-    ax.set_title('How Ranking Gaps Shape ATP Upsets',loc='left',fontsize=22,
-                 fontweight='bold',color=INK,pad=30)
+    fig.text(.125,.955,'How Ranking Gaps Shape ATP Upsets',fontsize=22,
+             fontweight='bold',color=INK, va='top')
+    fig.text(.125,.892,'ATP main-draw matches · 2014–2025',color=MUTED,fontsize=10.5,va='top')
     ax.legend(ncol=3,loc='upper right',bbox_to_anchor=(1,1.03),frameon=False,
               fontsize=11,handlelength=2.1,columnspacing=2.5,labelcolor=INK)
-    fig.subplots_adjust(left=.125,right=.94,bottom=.18,top=.78)
+    fig.subplots_adjust(left=.125,right=.94,bottom=.18,top=.75)
     if output:
         output=Path(output)
         output.parent.mkdir(parents=True,exist_ok=True)
